@@ -1,2 +1,4 @@
-__pycache__/*
+**/__pycache__/**
 submissions.db
+**/__init__.py
+.idea/*

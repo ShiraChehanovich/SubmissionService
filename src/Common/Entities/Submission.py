@@ -1,14 +1,9 @@
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Enum, Integer, String
+from sqlalchemy import Integer, String, Column, Enum, DateTime
 
 from database import Base
-
-
-class SubmissionStatus(str):
-    NEW = "new"
-    BOUND = "bound"
-    BIND_FAILED = "bind_failed"
+from src.Common.Enums.SubmissionStatus import SubmissionStatus
 
 
 class Submission(Base):
@@ -30,4 +25,3 @@ class Submission(Base):
     updated_at = Column(
         DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow
     )
-

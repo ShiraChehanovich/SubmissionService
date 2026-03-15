@@ -21,10 +21,10 @@ pip install -r requirements.txt
 
 ### Running the server
 
-From this folder:
+From the project root (the `Submission` folder):
 
 ```bash
-uvicorn main:app --reload
+uvicorn src.main:app --reload
 ```
 
 Then open the interactive API docs at:
