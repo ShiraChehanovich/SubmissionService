@@ -1,9 +1,9 @@
 services:
   bind-service:
-    image: shirachech15751/bind-service:1.0.0
+    image: shirachech15751/bind-service:1.0.1
     container_name: bind-service
-    ports:
-      - "8001:8000"
+    networks:
+      - app-net
 
   submission:
     image: shirachech15751/submission:1.0.0
@@ -15,12 +15,20 @@ services:
       FRONTEND_ORIGINS: http://localhost:3000
     ports:
       - "8000:8000"
+    networks:
+      - app-net
 
   submission-client:
-    image: shirachech15751/submission-client:1.0.0
+    image: shirachech15751/submission-client:1.0.1
     container_name: submission-client
     depends_on:
       - submission
     ports:
       - "3000:3000"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
 
