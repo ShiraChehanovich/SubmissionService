@@ -11,20 +11,51 @@ Each submission has:
 - **created_at**: timestamp
 - **updated_at**: timestamp
 
-### Requirements
+### Running with Docker Compose
 
-Install dependencies (preferably in a virtual environment):
+This is the easiest way to run the full stack (submission service + bind service + frontend client) together.
+
+**Prerequisites:** Make sure [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed.
+
+1. From the project root (the `Submission` folder), run:
 
 ```bash
-pip install -r requirements.txt
+docker compose up
 ```
 
-### Running the server
+> Add `-d` to run in detached (background) mode:
+> ```bash
+> docker compose up -d
+> ```
 
-From the project root (the `Submission` folder):
+2. The following services will start:
+
+| Service            | Container          | Port                          |
+|--------------------|--------------------|-------------------------------|
+| Submission API     | `submission`       | `http://localhost:8000`       |
+| Bind Service       | `bind-service`     | `http://localhost:8001`       |
+| Frontend Client    | `submission-client`| `http://localhost:3000`       |
+
+3. To stop all services:
 
 ```bash
-uvicorn src.main:app --reload
+docker compose down
+```
+
+---
+
+### Running with Docker (single service only)
+
+Build the image:
+
+```bash
+docker build -t submission-api .
+```
+
+Run the container and expose API port `8000`:
+
+```bash
+docker run --rm -p 8000:8000 --name submission-api submission-api
 ```
 
 ### Environment configuration
