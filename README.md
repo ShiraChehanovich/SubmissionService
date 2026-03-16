@@ -27,6 +27,16 @@ From the project root (the `Submission` folder):
 uvicorn src.main:app --reload
 ```
 
+### Environment configuration
+
+Configuration is loaded from `.env` (see `.env.example`).
+
+```bash
+BIND_SERVICE_BASE_URL=http://localhost:8001
+MAX_BIND_ATTEMPTS=5
+INITIAL_BACKOFF_SECONDS=0.5
+```
+
 Then open the interactive API docs at:
 
 - Swagger UI: `http://127.0.0.1:8000/docs`

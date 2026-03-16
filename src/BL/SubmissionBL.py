@@ -20,7 +20,7 @@ def _get_submission_or_raise(submission_id: int) -> Submission:
 
 def _post_bind_request(submission_id: int) -> httpx.Response:
     with httpx.Client(timeout=5.0) as client:
-        return client.post(BIND_SERVICE_URL, json={"submission_id": submission_id})
+        return client.post(f"{BIND_SERVICE_URL}/bind", json={"submission_id": submission_id})
 
 
 def _is_retryable_response(response: httpx.Response) -> bool:

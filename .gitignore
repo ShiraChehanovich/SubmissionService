@@ -2,3 +2,4 @@
 submissions.db
 **/__init__.py
 .idea/*
+.env
