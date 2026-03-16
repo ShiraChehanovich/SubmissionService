@@ -35,6 +35,7 @@ Configuration is loaded from `.env` (see `.env.example`).
 BIND_SERVICE_BASE_URL=http://localhost:8001
 MAX_BIND_ATTEMPTS=5
 INITIAL_BACKOFF_SECONDS=0.5
+FRONTEND_ORIGINS=http://localhost:3000,http://127.0.0.1:5173
 ```
 
 Then open the interactive API docs at:

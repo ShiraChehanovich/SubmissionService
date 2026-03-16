@@ -5,7 +5,7 @@ from fastapi import Path, Query
 import schemas
 
 StatusFilterQuery = Annotated[
-    Optional[schemas.SubmissionStatusEnum],
+    Optional[schemas.SubmissionStatus],
     Query(alias="status", description="Filter by status"),
 ]
 

@@ -1,19 +1,13 @@
 from datetime import datetime
-from enum import Enum
 from typing import Optional
 
 from pydantic import BaseModel, Field
-
-
-class SubmissionStatusEnum(str, Enum):
-    new = "new"
-    bound = "bound"
-    bind_failed = "bind_failed"
+from src.Common.Enums.SubmissionStatus import SubmissionStatus
 
 
 class SubmissionBase(BaseModel):
     name: str = Field(..., min_length=1)
-    status: SubmissionStatusEnum = SubmissionStatusEnum.new
+    status: SubmissionStatus = SubmissionStatus.NEW
 
 
 class SubmissionCreate(SubmissionBase):
@@ -22,18 +16,18 @@ class SubmissionCreate(SubmissionBase):
 
 class SubmissionUpdate(BaseModel):
     name: Optional[str] = Field(None, min_length=1)
-    status: Optional[SubmissionStatusEnum] = None
+    status: Optional[SubmissionStatus] = None
 
 
 class BindResult(BaseModel):
-    status: SubmissionStatusEnum
+    status: SubmissionStatus
     attempts: int
 
 
 class SubmissionRead(BaseModel):
     id: int
     name: str
-    status: SubmissionStatusEnum
+    status: SubmissionStatus
     created_at: datetime
     updated_at: datetime
 

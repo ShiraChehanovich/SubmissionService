@@ -13,13 +13,13 @@ class Submission(Base):
     name = Column(String, nullable=False, index=True)
     status = Column(
         Enum(
-            SubmissionStatus.NEW,
-            SubmissionStatus.BOUND,
-            SubmissionStatus.BIND_FAILED,
+            SubmissionStatus.NEW.value,
+            SubmissionStatus.BOUND.value,
+            SubmissionStatus.BIND_FAILED.value,
             name="submission_status",
         ),
         nullable=False,
-        default=SubmissionStatus.NEW,
+        default=SubmissionStatus.NEW.value,
     )
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at = Column(

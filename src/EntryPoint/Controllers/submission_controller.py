@@ -45,7 +45,7 @@ def get_submission(submission_id: SubmissionIdPath):
     return submission
 
 
-@router.put("/submissions/{submission_id}", response_model=schemas.SubmissionRead)
+@router.patch("/submissions/{submission_id}", response_model=schemas.SubmissionRead)
 def update_submission(
     submission_id: SubmissionIdPath,
     submission_in: schemas.SubmissionUpdate,

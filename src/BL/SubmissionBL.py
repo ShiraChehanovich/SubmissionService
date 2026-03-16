@@ -14,7 +14,7 @@ from src.Models.submission_model import Submission
 def _get_submission_or_raise(submission_id: int) -> Submission:
     submission = submission_model.get_submission(submission_id)
     if submission is None:
-        raise NotFoundException("Submission not found")
+        raise NotFoundException()
     return submission
 
 
@@ -45,17 +45,17 @@ def _run_bind_attempt(submission_id: int) -> tuple[bool, bool]:
 
 def _apply_bind_status(
     submission_id: int,
-    status: schemas.SubmissionStatusEnum,
+    status: schemas.SubmissionStatus,
     attempts: int,
 ) -> schemas.BindResult:
     submission = submission_model.set_submission_status(submission_id, status.value)
     if submission is None:
-        raise NotFoundException("Submission not found")
+        raise NotFoundException()
     return schemas.BindResult(status=status, attempts=attempts)
 
 
 def list_submissions(
-    status_filter: Optional[schemas.SubmissionStatusEnum] = None,
+    status_filter: Optional[schemas.SubmissionStatus] = None,
     name: Optional[str] = None,
 ) -> List[Submission]:
     status_value = status_filter.value if status_filter is not None else None
@@ -92,8 +92,8 @@ def delete_submission(submission_id: int) -> None:
 def bind_submission(submission_id: int) -> schemas.BindResult:
     submission = _get_submission_or_raise(submission_id)
 
-    if submission.status == schemas.SubmissionStatusEnum.bound.value:
-        return schemas.BindResult(status=schemas.SubmissionStatusEnum.bound, attempts=0)
+    if submission.status == schemas.SubmissionStatus.BOUND.value:
+        return schemas.BindResult(status=schemas.SubmissionStatus.BOUND, attempts=0)
 
     attempts = 0
     backoff = INITIAL_BACKOFF_SECONDS
@@ -104,7 +104,7 @@ def bind_submission(submission_id: int) -> schemas.BindResult:
         if is_success:
             return _apply_bind_status(
                 submission_id,
-                schemas.SubmissionStatusEnum.bound,
+                schemas.SubmissionStatus.BOUND,
                 attempts,
             )
 
@@ -116,6 +116,6 @@ def bind_submission(submission_id: int) -> schemas.BindResult:
 
     return _apply_bind_status(
         submission_id,
-        schemas.SubmissionStatusEnum.bind_failed,
+        schemas.SubmissionStatus.BIND_FAILED,
         attempts,
     )
